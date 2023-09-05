@@ -1,46 +1,63 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import { useState, useEffect } from 'react';
 import './App.css';
-import { getGamaData } from './apis/api.ts';
+import { getGamaData, getThumbnailsDefault } from './apis/api';
+import { GameData } from './models/GameModel.ts';
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [games, setGames] = useState([] as GameData[]);
+  const [defaultImageUrl, setDefaultImageUrl] = useState<string | undefined>(
+    undefined,
+  );
 
-  const fetchData = async () => {
+  useEffect(() => {
+    fetchGamesData();
+    fetchDefaultImage();
+  }, []);
+
+  const fetchGamesData = async () => {
     try {
-      const data = await getGamaData();
-      console.log('Data from API:', data);
+      const gameData = await getGamaData();
+      console.log(gameData);
+      if (Array.isArray(gameData)) {
+        setGames(gameData);
+      } else {
+        console.error('Invalid data received:', gameData);
+      }
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={fetchData}>Fetch Data from API</button>
+  const fetchDefaultImage = async () => {
+    try {
+      const defaultImage = await getThumbnailsDefault();
+      setDefaultImageUrl(defaultImage);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+  return (
+    <div className="App">
+      <h1 className="main tile">List of games</h1>
+      <div className="image-container">
+        {games.map((game) => (
+          <a
+            key={game.id}
+            href={game.startUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="game-link"
+          >
+            <img
+              src={game.thumb ? game.thumb.url : defaultImageUrl}
+              alt={game.title}
+              className="game-image"
+            />
+          </a>
+        ))}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   );
 }
 

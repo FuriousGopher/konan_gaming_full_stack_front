@@ -2,8 +2,7 @@ import axios from 'axios';
 import { LoginData, User } from '../models/UserModel';
 import { GameData } from '../models/GameModel';
 
-const BASE_URL =
-  'https://konan-gaming-full-stack-back-3fpvm4m4y-furiousgopher.vercel.app';
+const BASE_URL = 'https://konan-gaming-full-stack-back.vercel.app';
 
 export const registration = async (
   data: Pick<User, 'login' | 'email' | 'password'>,
