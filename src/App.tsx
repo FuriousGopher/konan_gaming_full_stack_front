@@ -1,17 +1,24 @@
 import { useState, useEffect } from 'react';
 import './App.css';
-import { getGamaData, getThumbnailsDefault } from './apis/api';
+import { BASE_URL, getGamaData } from './apis/api';
 import { GameData } from './models/GameModel.ts';
+import { Button } from '@mui/material';
+import ModalDialog from './components/registration/registration.tsx';
 
 function App() {
   const [games, setGames] = useState([] as GameData[]);
-  const [defaultImageUrl, setDefaultImageUrl] = useState<string | undefined>(
-    undefined,
-  );
+  const [open, setModalOpen] = useState(false);
+
+  const handleOpen = () => {
+    setModalOpen(true);
+  };
+
+  const handleClose = () => {
+    setModalOpen(false);
+  };
 
   useEffect(() => {
     fetchGamesData();
-    fetchDefaultImage();
   }, []);
 
   const fetchGamesData = async () => {
@@ -28,39 +35,39 @@ function App() {
     }
   };
 
-  const fetchDefaultImage = async () => {
-    try {
-      const defaultImage = await getThumbnailsDefault();
-      setDefaultImageUrl(defaultImage);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
   return (
-    <div className="App">
-      <h1 className="main tile">List of games</h1>
-      <div className="image-container">
-        {games.map((game) => (
-          <a
-            key={game.id}
-            href={game.startUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="game-link"
-          >
-            <img
-              src={game.thumb ? game.thumb.url : defaultImageUrl}
-              alt={game.title}
-              className="game-image"
-            />
-          </a>
-        ))}
+    <div>
+      <div>
+        <Button variant="contained" color="primary" onClick={handleOpen}>
+          {' '}
+          Signup
+        </Button>
+        <ModalDialog open={open} handleClose={handleClose} />
+      </div>
+      <div className="App">
+        <h1 className="main tile">List of games</h1>
+        <div className="image-container">
+          {games.map((game) => (
+            <a
+              key={game.id}
+              href={game.startUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="game-link"
+            >
+              <img
+                src={
+                  game.thumb ? game.thumb.url : `${BASE_URL}/thumbnails/default`
+                }
+                alt={game.title}
+                className="game-image"
+              />
+            </a>
+          ))}
+        </div>
       </div>
     </div>
   );
 }
-
-////////////////sorryyyyyyyyy
 
 export default App;

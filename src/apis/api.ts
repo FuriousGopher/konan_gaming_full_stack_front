@@ -2,17 +2,17 @@ import axios from 'axios';
 import { LoginData, User } from '../models/UserModel';
 import { GameData } from '../models/GameModel';
 
-const BASE_URL = 'https://konan-gaming-full-stack-back.vercel.app';
+export const BASE_URL = 'https://konan-gaming-full-stack-back.vercel.app';
 
 export const registration = async (
   data: Pick<User, 'login' | 'email' | 'password'>,
 ) => {
   try {
     const response = await axios.post(`${BASE_URL}/auth/registration`, data);
-    return (await response.data) as Promise<User>;
+    return await response.data;
   } catch (e) {
     console.error(e);
-    return e as Error;
+    throw e as Error;
   }
 };
 
