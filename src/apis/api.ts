@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { LoginData, User } from '../models/UserModel';
 import { GameData } from '../models/GameModel';
+import { User } from '../models/UserModel.ts';
 
 export const BASE_URL = 'https://konan-gaming-full-stack-back.vercel.app';
 
@@ -16,13 +16,16 @@ export const registration = async (
   }
 };
 
-export const login = async (data: LoginData) => {
+export const login = async (data: {
+  loginOrEmail: string;
+  password: string;
+}) => {
   try {
     const response = await axios.post(`${BASE_URL}/login`, data);
-    return (await response.data) as Promise<User>;
+    return await response.data;
   } catch (e) {
     console.error(e);
-    return e as Error;
+    throw e as Error;
   }
 };
 
@@ -32,7 +35,7 @@ export const getGamaData = async () => {
     return (await response.data) as Promise<GameData>;
   } catch (e) {
     console.error(e);
-    return e as Error;
+    throw e as Error;
   }
 };
 
@@ -42,7 +45,7 @@ export const getGamaDataBySearch = async (title: string) => {
     return (await response.data) as Promise<GameData>;
   } catch (e) {
     console.error(e);
-    return e as Error;
+    throw e as Error;
   }
 };
 
@@ -52,7 +55,7 @@ export const getThumbnailsDefault = async () => {
     return await response.data;
   } catch (e) {
     console.error(e);
-    return e as Error;
+    throw e as Error;
   }
 };
 
@@ -62,6 +65,6 @@ export const spinSlotMachine = async () => {
     return await response.data;
   } catch (e) {
     console.error(e);
-    return e as Error;
+    throw e as Error;
   }
 };

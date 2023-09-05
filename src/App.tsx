@@ -3,18 +3,30 @@ import './App.css';
 import { BASE_URL, getGamaData } from './apis/api';
 import { GameData } from './models/GameModel.ts';
 import { Button } from '@mui/material';
-import ModalDialog from './components/registration/registration.tsx';
+import ModalForRegister from './components/registration/registration.tsx';
+import ModalForLogin from './components/login/login.tsx';
 
 function App() {
   const [games, setGames] = useState([] as GameData[]);
-  const [open, setModalOpen] = useState(false);
+  const [registerModal, setRegisterModal] = useState(false);
+  const [loginModalOpen, setLoginModelOpen] = useState(false);
+  const [spinModalOpen, setSpinModalOpen] = useState(false);
 
-  const handleOpen = () => {
-    setModalOpen(true);
+  const handleRegisterModalOpen = () => {
+    setRegisterModal(true);
+  };
+  const handleLoginOpen = () => {
+    setLoginModelOpen(true);
+  };
+
+  const handleSpinModalOpen = () => {
+    setSpinModalOpen(true);
   };
 
   const handleClose = () => {
-    setModalOpen(false);
+    setRegisterModal(false);
+    setLoginModelOpen(false);
+    setSpinModalOpen(false);
   };
 
   useEffect(() => {
@@ -24,7 +36,6 @@ function App() {
   const fetchGamesData = async () => {
     try {
       const gameData = await getGamaData();
-      console.log(gameData);
       if (Array.isArray(gameData)) {
         setGames(gameData);
       } else {
@@ -37,12 +48,36 @@ function App() {
 
   return (
     <div>
+      <div className="button-container">
+        <div className="signup-button">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleRegisterModalOpen}
+          >
+            {' '}
+            Signup
+          </Button>
+          <ModalForRegister open={registerModal} handleClose={handleClose} />
+        </div>
+        <div>
+          <Button variant="contained" color="primary" onClick={handleLoginOpen}>
+            {' '}
+            Login
+          </Button>
+          <ModalForLogin open={loginModalOpen} handleClose={handleClose} />
+        </div>
+      </div>
       <div>
-        <Button variant="contained" color="primary" onClick={handleOpen}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSpinModalOpen}
+        >
           {' '}
-          Signup
+          Use slot machine
         </Button>
-        <ModalDialog open={open} handleClose={handleClose} />
+        <ModalForLogin open={spinModalOpen} handleClose={handleClose} />
       </div>
       <div className="App">
         <h1 className="main tile">List of games</h1>

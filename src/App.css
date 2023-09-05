@@ -20,3 +20,19 @@
     border: 1px solid #ddd;
     border-radius: 5px;
 }
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    margin-right: 10px;
+
+}
+
+.signup-button{
+    margin-right: 20px;
+}
+
