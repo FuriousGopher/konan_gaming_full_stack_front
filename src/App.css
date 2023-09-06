@@ -4,12 +4,13 @@
 
 
 .image-container {
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     gap: 20px;
     padding: 20px;
-    border: 2px solid #ccc;
     border-radius: 10px;
 }
 
