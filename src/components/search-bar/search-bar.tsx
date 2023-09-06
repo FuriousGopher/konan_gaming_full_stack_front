@@ -1,29 +1,25 @@
-import { Autocomplete, TextField, Typography } from '@mui/material';
-import { useState } from 'react';
+import { IconButton, TextField } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import * as React from 'react';
 
-const SearchBar = () => {
-  const [list, setList] = useState([]);
-
+export const SearchBar = ({ setSearchQuery }) => {
   return (
-    <>
-      <Typography variant="h4" component={'h1'}>
-        React Search Bar
-      </Typography>
-      <Autocomplete
-        disablePortal
-        id="combo-box-demo"
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Search title"
-            sx={{
-              width: 350,
-              margin: '10px auto',
-            }}
-          />
-        )}
+    <form>
+      <TextField
+        id="search-bar"
+        className="text"
+        onInput={(e: React.FormEvent<HTMLInputElement>) => {
+          setSearchQuery(e.currentTarget.value);
+        }}
+        label="Enter a city name"
+        variant="outlined"
+        placeholder="Search..."
+        size="small"
       />
-    </>
+      <IconButton type="submit" aria-label="search">
+        <SearchIcon style={{ fill: 'blue' }} />
+      </IconButton>
+    </form>
   );
 };
 

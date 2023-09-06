@@ -4,7 +4,6 @@ import { BASE_URL, getGamaData } from './apis/api';
 import { GameData } from './models/GameModel.ts';
 import { Button } from '@mui/material';
 import ModalDialog from './components/registration/registration.tsx';
-import SearchBar from './components/search-bar/search-bar.tsx';
 
 function App() {
   const [games, setGames] = useState([] as GameData[]);
@@ -22,9 +21,9 @@ function App() {
     fetchGamesData();
   }, []);
 
-  const fetchGamesData = async () => {
+  const fetchGamesData = async (query = '') => {
     try {
-      const gameData = await getGamaData();
+      const gameData = await getGamaData(query);
       if (Array.isArray(gameData)) {
         setGames(gameData);
       } else {
@@ -43,9 +42,6 @@ function App() {
           Signup
         </Button>
         <ModalDialog open={open} handleClose={handleClose} />
-      </div>
-      <div>
-        <SearchBar />
       </div>
       <div className="App">
         <h1 className="main tile">List of games</h1>
