@@ -1,5 +1,5 @@
 import { Dialog } from '@mui/material';
-import RegistrationForm from './forms/registrationForm.tsx';
+import RegistrationForm from './forms/RegistrationForm.tsx';
 
 const ModalForRegister = (props: {
   open: boolean;

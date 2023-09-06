@@ -1,7 +1,7 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import Home from './pages/home.tsx';
-import SlotMachine from './components/slot-machine/slot-machine.tsx';
+import Home from './pages/Home.tsx';
+import SlotMachine from './components/slot-machine/SlotMachinePage.tsx';
 
 const App = () => {
   return (
