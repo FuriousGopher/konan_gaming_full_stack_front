@@ -1,12 +1,15 @@
 import { Dialog } from '@mui/material';
-import Form from '../Forms/Form.tsx';
+import RegistrationForm from './forms/registrationForm.tsx';
 
-const ModalDialog = (props: { open: boolean; handleClose: () => void }) => {
+const ModalForRegister = (props: {
+  open: boolean;
+  handleClose: () => void;
+}) => {
   return (
     <Dialog open={props.open} onClose={props.handleClose}>
-      <Form handleClose={props.handleClose} />
+      <RegistrationForm handleClose={props.handleClose} />
     </Dialog>
   );
 };
 
-export default ModalDialog;
+export default ModalForRegister;

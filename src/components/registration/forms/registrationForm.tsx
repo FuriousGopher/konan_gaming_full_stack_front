@@ -1,8 +1,8 @@
 import { Alert, Button, TextField } from '@mui/material';
 import { useState } from 'react';
-import { registration } from '../../apis/api.ts';
+import { registration } from '../../../apis/api.ts';
 
-const Form = (props: { handleClose: () => void }) => {
+const RegistrationForm = (props: { handleClose: () => void }) => {
   const [login, setLogin] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,7 +19,7 @@ const Form = (props: { handleClose: () => void }) => {
       await registration(userData);
 
       props.handleClose();
-    } catch (e) {
+    } catch (e: any) {
       const errorsArray = e.response.data.message as {
         message: string;
         field: string;
@@ -75,7 +75,7 @@ const Form = (props: { handleClose: () => void }) => {
       <div>
         <Button
           variant="outlined"
-          color="primary"
+          color="error"
           sx={{ margin: '2rem' }}
           onClick={props.handleClose}
         >
@@ -83,7 +83,7 @@ const Form = (props: { handleClose: () => void }) => {
         </Button>
         <Button
           variant="contained"
-          color="secondary"
+          color="success"
           sx={{ margin: '2rem' }}
           type="submit"
           onClick={handleSubmit}
@@ -95,4 +95,4 @@ const Form = (props: { handleClose: () => void }) => {
   );
 };
 
-export default Form;
+export default RegistrationForm;
