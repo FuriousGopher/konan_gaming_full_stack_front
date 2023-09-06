@@ -5,29 +5,25 @@ import { GameData } from './models/GameModel.ts';
 import { Button } from '@mui/material';
 import ModalForRegister from './components/registration/registration.tsx';
 import ModalForLogin from './components/login/login.tsx';
+import CustomHook from './utils/custom-hook.tsx';
 
 function App() {
   const [games, setGames] = useState([] as GameData[]);
-  const [registerModal, setRegisterModal] = useState(false);
-  const [loginModalOpen, setLoginModelOpen] = useState(false);
-  const [spinModalOpen, setSpinModalOpen] = useState(false);
-
-  const handleRegisterModalOpen = () => {
-    setRegisterModal(true);
-  };
-  const handleLoginOpen = () => {
-    setLoginModelOpen(true);
-  };
-
-  const handleSpinModalOpen = () => {
-    setSpinModalOpen(true);
-  };
-
-  const handleClose = () => {
-    setRegisterModal(false);
-    setLoginModelOpen(false);
-    setSpinModalOpen(false);
-  };
+  const {
+    isOpen: isRegisterModalOpen,
+    openModal: openRegisterModal,
+    closeModal: closeRegisterModal,
+  } = CustomHook(false);
+  const {
+    isOpen: isLoginModalOpen,
+    openModal: openLoginModal,
+    closeModal: closeLoginModal,
+  } = CustomHook(false);
+  const {
+    isOpen: isSlotMachineModalOpen,
+    openModal: openSlotMachineModal,
+    closeModal: closeSlotMachineModal,
+  } = CustomHook(false);
 
   useEffect(() => {
     fetchGamesData();
@@ -48,36 +44,51 @@ function App() {
 
   return (
     <div>
-      <div className="button-container">
-        <div className="signup-button">
+      <div>
+        <div className="button-container">
+          <div className="signup-button">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={openRegisterModal}
+            >
+              {' '}
+              Signup
+            </Button>
+            <ModalForRegister
+              open={isRegisterModalOpen}
+              handleClose={closeRegisterModal}
+            />
+          </div>
+          <div>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={openLoginModal}
+            >
+              {' '}
+              Login
+            </Button>
+            <ModalForLogin
+              open={isLoginModalOpen}
+              handleClose={closeLoginModal}
+            />
+          </div>
+        </div>
+        <div>
           <Button
             variant="contained"
             color="primary"
-            onClick={handleRegisterModalOpen}
+            onClick={openSlotMachineModal}
           >
             {' '}
-            Signup
+            Use slot machine
           </Button>
-          <ModalForRegister open={registerModal} handleClose={handleClose} />
+          <ModalForLogin
+            open={isSlotMachineModalOpen}
+            handleClose={closeSlotMachineModal}
+          />
         </div>
-        <div>
-          <Button variant="contained" color="primary" onClick={handleLoginOpen}>
-            {' '}
-            Login
-          </Button>
-          <ModalForLogin open={loginModalOpen} handleClose={handleClose} />
-        </div>
-      </div>
-      <div>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleSpinModalOpen}
-        >
-          {' '}
-          Use slot machine
-        </Button>
-        <ModalForLogin open={spinModalOpen} handleClose={handleClose} />
       </div>
       <div className="App">
         <h1 className="main tile">List of games</h1>
