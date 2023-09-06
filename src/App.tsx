@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BASE_URL, getGamaData } from './apis/api';
 import { GameData } from './models/GameModel.ts';
 import { Button } from '@mui/material';
 import ModalDialog from './components/registration/registration.tsx';
+import SearchBar from './components/search-bar/SearchBar.tsx';
 
 function App() {
   const [games, setGames] = useState([] as GameData[]);
@@ -21,10 +22,9 @@ function App() {
     fetchGamesData();
   }, []);
 
-  const fetchGamesData = async () => {
+  const fetchGamesData = async (query = '') => {
     try {
-      const gameData = await getGamaData();
-      console.log(gameData);
+      const gameData = await getGamaData(query);
       if (Array.isArray(gameData)) {
         setGames(gameData);
       } else {
@@ -44,26 +44,33 @@ function App() {
         </Button>
         <ModalDialog open={open} handleClose={handleClose} />
       </div>
+      <div>
+        <SearchBar onSearch={fetchGamesData} />
+      </div>
       <div className="App">
         <h1 className="main tile">List of games</h1>
         <div className="image-container">
-          {games.map((game) => (
-            <a
-              key={game.id}
-              href={game.startUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="game-link"
-            >
-              <img
-                src={
-                  game.thumb ? game.thumb.url : `${BASE_URL}/thumbnails/default`
-                }
-                alt={game.title}
-                className="game-image"
-              />
-            </a>
-          ))}
+          {!games.length
+            ? 'No Games found'
+            : games.map((game) => (
+                <a
+                  key={game.id}
+                  href={game.startUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="game-link"
+                >
+                  <img
+                    src={
+                      game.thumb
+                        ? game.thumb.url
+                        : `${BASE_URL}/thumbnails/default`
+                    }
+                    alt={game.title}
+                    className="game-image"
+                  />
+                </a>
+              ))}
         </div>
       </div>
     </div>
