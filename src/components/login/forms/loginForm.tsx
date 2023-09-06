@@ -3,8 +3,8 @@ import { login } from '../../../apis/api.ts';
 import { Alert, Button, TextField } from '@mui/material';
 
 const LoginForm = (props: { handleClose: () => void }) => {
-  const [loginOrEmail, setLoginOrEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [loginOrEmail, setLoginOrEmail] = useState('Rick');
+  const [password, setPassword] = useState('q1w2e3r4');
   const [error, setError] = useState<string[]>([]);
 
   const handleLogin = async () => {
@@ -17,6 +17,7 @@ const LoginForm = (props: { handleClose: () => void }) => {
       await login(loginData);
 
       props.handleClose();
+      return;
     } catch (e: any) {
       setError([e.response.data.message]);
       console.error(e.response.data);
