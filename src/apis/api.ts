@@ -29,7 +29,7 @@ export const login = async (data: LoginData) => {
 export const getGamaData = async (query = '') => {
   try {
     const response = await axios.get(`${BASE_URL}/send`, {
-      params: { query },
+      params: { title: query },
     });
     return (await response.data) as Promise<GameData>;
   } catch (e) {
