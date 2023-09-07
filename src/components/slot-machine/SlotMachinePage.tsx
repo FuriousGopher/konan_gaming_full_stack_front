@@ -37,13 +37,13 @@ export const SlotMachinePage = () => {
   const getImageForSpinResult = (result: string | undefined) => {
     switch (result) {
       case 'cherry':
-        return 'public/cherry.png';
+        return '/cherry.png';
       case 'banana':
-        return 'public/banana.png';
+        return '/banana.png';
       case 'lemon':
-        return 'public/lemon.png';
+        return '/lemon.png';
       case 'apple':
-        return 'public/apple.png';
+        return '/apple.png';
       default:
         return '';
     }
