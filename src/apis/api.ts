@@ -3,7 +3,7 @@ import { User, UserInfo } from '../models/UserModel.ts';
 import axios from 'axios';
 import { SpinResultModel } from '../models/SpinResultModel.ts';
 
-export const BASE_URL = import.meta.env.VITE_BACK_URL;
+export const BASE_URL = process.env.VITE_BACK_URL;
 
 console.log(BASE_URL);
 
