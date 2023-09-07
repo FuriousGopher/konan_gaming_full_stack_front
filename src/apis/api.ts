@@ -4,7 +4,8 @@ import axios from 'axios';
 import { SpinResultModel } from '../models/SpinResultModel.ts';
 
 export const BASE_URL = 'https://konan-gaming-full-stack-back.vercel.app';
-
+console.log('meta', import.meta.env.VITE_BACK_URL);
+console.log('process', process.env.VITE_BACK_URL);
 const instance = axios.create({
   baseURL: BASE_URL,
   headers: { 'Access-Control-Allow-Origin': BASE_URL },

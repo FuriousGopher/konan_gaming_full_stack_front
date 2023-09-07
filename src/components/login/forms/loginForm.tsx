@@ -3,8 +3,8 @@ import { login } from '../../../apis/api.ts';
 import { Alert, Button, TextField } from '@mui/material';
 
 const LoginForm = (props: { handleClose: () => void }) => {
-  const [loginOrEmail, setLoginOrEmail] = useState('Rick');
-  const [password, setPassword] = useState('q1w2e3r4');
+  const [loginOrEmail, setLoginOrEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState<string[]>([]);
 
   const handleLogin = async () => {

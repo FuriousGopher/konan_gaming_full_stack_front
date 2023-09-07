@@ -79,20 +79,28 @@ export const SlotMachinePage = () => {
       <div className="Card-Slot-Machine">
         <Card>
           <CardContent sx={{ width: '1000px', height: '500px' }}>
-            <Typography>
-              <img
-                className="FruitImage"
-                src={getImageForSpinResult(spinResult?.result1)}
-              />
-              <img
-                className="FruitImage"
-                src={getImageForSpinResult(spinResult?.result2)}
-              />
-              <img
-                className="FruitImage"
-                src={getImageForSpinResult(spinResult?.result3)}
-              />
-            </Typography>
+            {spinResult ? (
+              <Typography>
+                <img
+                  className="FruitImage"
+                  src={getImageForSpinResult(spinResult?.result1)}
+                />
+                <img
+                  className="FruitImage"
+                  src={getImageForSpinResult(spinResult?.result2)}
+                />
+                <img
+                  className="FruitImage"
+                  src={getImageForSpinResult(spinResult?.result3)}
+                />
+              </Typography>
+            ) : (
+              <Typography>
+                <img className="FruitImage" src={'/slot-machine.png'} />
+                <img className="FruitImage" src={'/slot-machine.png'} />
+                <img className="FruitImage" src={'/slot-machine.png'} />
+              </Typography>
+            )}
             <Typography>
               <h3>Your Win: {spinResult?.yourWin}</h3>
               <Button onClick={makeSpin}>Spin</Button>
