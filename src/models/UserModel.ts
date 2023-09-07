@@ -1,10 +1,12 @@
 export interface User {
-    id: string;
-    login: string;
-    email: string;
-    password: string;
-
-    createdAt: string;
+  id: string;
+  login: string;
+  email: string;
+  password: string;
+  createdAt: string;
 }
 
-export type LoginData = Pick<User, 'login' | 'email' | 'password'>;
+export interface UserInfo {
+  userName: string;
+  coins: number;
+}

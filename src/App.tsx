@@ -1,66 +1,16 @@
-import { useState, useEffect } from 'react';
 import './App.css';
-import { getGamaData, getThumbnailsDefault } from './apis/api';
-import { GameData } from './models/GameModel.ts';
+import { Route, Routes } from 'react-router-dom';
+import Home from './pages/Home.tsx';
+import SlotMachine from './components/slot-machine/SlotMachinePage.tsx';
 
-function App() {
-  const [games, setGames] = useState([] as GameData[]);
-  const [defaultImageUrl, setDefaultImageUrl] = useState<string | undefined>(
-    undefined,
-  );
-
-  useEffect(() => {
-    fetchGamesData();
-    fetchDefaultImage();
-  }, []);
-
-  const fetchGamesData = async () => {
-    try {
-      const gameData = await getGamaData();
-      console.log(gameData);
-      if (Array.isArray(gameData)) {
-        setGames(gameData);
-      } else {
-        console.error('Invalid data received:', gameData);
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-
-  const fetchDefaultImage = async () => {
-    try {
-      const defaultImage = await getThumbnailsDefault();
-      setDefaultImageUrl(defaultImage);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
+const App = () => {
   return (
-    <div className="App">
-      <h1 className="main tile">List of games</h1>
-      <div className="image-container">
-        {games.map((game) => (
-          <a
-            key={game.id}
-            href={game.startUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="game-link"
-          >
-            <img
-              src={game.thumb ? game.thumb.url : defaultImageUrl}
-              alt={game.title}
-              className="game-image"
-            />
-          </a>
-        ))}
-      </div>
+    <div>
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/slot-machine" element={<SlotMachine />}></Route>
+      </Routes>
     </div>
   );
-}
-
-////////////////sorryyyyyyyyy
-
+};
 export default App;
