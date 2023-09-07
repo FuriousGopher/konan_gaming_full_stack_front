@@ -41,10 +41,7 @@ function Home() {
 
   return (
     <div className="container">
-      <div>
-        <h1>{process.env.BACK_URL}</h1>
-        <h2>here</h2>
-      </div>
+      <div></div>
       <div className="top-bar">
         <div className="top-left">
           <Link to="/slot-machine">

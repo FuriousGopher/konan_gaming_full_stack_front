@@ -32,3 +32,9 @@
     height: 200px;
     margin-right: 50px;
 }
+
+.Home-button{
+    position: absolute;
+    left: 20px;
+    top: 19%;
+}

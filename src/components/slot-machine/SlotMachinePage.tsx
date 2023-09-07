@@ -4,6 +4,7 @@ import { UserInfo } from '../../models/UserModel.ts';
 import { Alert, Button, Card, CardContent, Typography } from '@mui/material';
 import { SpinResultModel } from '../../models/SpinResultModel.ts';
 import './SlotMachinePage.css';
+import { Link } from 'react-router-dom';
 
 export const SlotMachinePage = () => {
   const [userinfo, setUserInfo] = useState<UserInfo>();
@@ -103,10 +104,19 @@ export const SlotMachinePage = () => {
             )}
             <Typography>
               <h3>Your Win: {spinResult?.yourWin}</h3>
-              <Button onClick={makeSpin}>Spin</Button>
+              <Button variant="contained" color="success" onClick={makeSpin}>
+                Spin
+              </Button>
             </Typography>
           </CardContent>
         </Card>
+      </div>
+      <div className="Home-button">
+        <Link to="/">
+          <Button variant="contained" color="primary">
+            Home
+          </Button>
+        </Link>
       </div>
     </div>
   );
