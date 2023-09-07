@@ -3,7 +3,9 @@ import { User, UserInfo } from '../models/UserModel.ts';
 import axios from 'axios';
 import { SpinResultModel } from '../models/SpinResultModel.ts';
 
-export const BASE_URL = 'http://localhost:5000';
+export const BASE_URL = import.meta.env.VITE_BACK_URL;
+
+console.log(BASE_URL);
 
 const instance = axios.create({
   baseURL: BASE_URL,
