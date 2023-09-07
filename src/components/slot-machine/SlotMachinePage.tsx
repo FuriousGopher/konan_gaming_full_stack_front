@@ -14,7 +14,7 @@ export const SlotMachinePage = () => {
     try {
       const userInfo = await getUserinfo();
       setUserInfo(userInfo);
-    } catch (e) {
+    } catch (e: any) {
       setError([e.response.data.message]);
       console.error(e);
     }
@@ -25,7 +25,7 @@ export const SlotMachinePage = () => {
       const spinResult = await spinSlotMachine();
       setSpinResult(spinResult);
       fetchUserInfo();
-    } catch (e) {
+    } catch (e: any) {
       setError([e.response.data.message]);
       console.error(e);
     }
